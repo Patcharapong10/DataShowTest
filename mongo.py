@@ -3,7 +3,7 @@ from flask import Flask,jsonify,render_template,request
 from flask_pymongo import PyMongo
 
 app = Flask(__name__)
-client = pymongo.MongoClient("mongodb://admin:VIDgnh48123@10.100.2.48:27017") 
+client = pymongo.MongoClient("mongodb://admin:VIDgnh48123@node12713-project.app.ruk-com.cloud:11012") 
 db = client["Ass1"] 
 
 
