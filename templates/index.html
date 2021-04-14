@@ -95,19 +95,69 @@
             </div>
         </div>
 
+        <section class="item content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="productbox">
+                            <div class="fadeshop">
+                                <div class="product-details">
+                                    {% for emp in emp_list %}
+                                    <tr>
+                                    <td>{{ emp['_name'] }}</td>
+                                    <td>{{ emp['_model'] }}</td>
+                                    <td>{{ emp['_price'] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </div>
+                                
+                                   
+                                
+                            </div>
+                        </div>
+                    </div>
 
-        <center>
-    <table border="1" >
-        {% for emp in emp_list %}
-        <tr>
-           <td>{{ emp['_name'] }}</td>
-           <td>{{ emp['_model'] }}</td>
-           <td>{{ emp['_price'] }}</td>
-        </tr>
-        {% endfor %}
-        </table></center>
-    
-    
+                    <div class="col-md-4">
+                        <div class="productbox">
+                            <div class="fadeshop">
+                                <div class="product-details">
+                                    {% for emp in emp_list %}
+                                    <tr>
+                                    <td>{{ emp['_name'] }}</td>
+                                    <td>{{ emp['_model'] }}</td>
+                                    <td>{{ emp['_price'] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </div>
+                                
+                                   
+                                
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="productbox">
+                            <div class="fadeshop">
+                                <div class="product-details">
+                                    {% for emp in emp_list %}
+                                    <tr>
+                                    <td>{{ emp['_name'] }}</td>
+                                    <td>{{ emp['_model'] }}</td>
+                                    <td>{{ emp['_price'] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </div>
+                                
+                                   
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
 <section class="content-block" style="background-color:#00bba7;">
     <div class="container text-center">

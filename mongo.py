@@ -1,7 +1,9 @@
 import pymongo
+import http.client
 from flask import Flask,jsonify,render_template,request
 from flask_pymongo import PyMongo
 
+conn = http.client.HTTPSConnection("car-stockpile.p.rapidapi.com")
 app = Flask(__name__)
 client = pymongo.MongoClient("mongodb://admin:VIDgnh48123@node12713-project.app.ruk-com.cloud:11012") 
 db = client["Ass1"] 
@@ -9,7 +11,7 @@ db = client["Ass1"]
 
 @app.route("/") 
 def index(): 
-    emp_list = db.Car.find()
+    emp_list = db.Car.find().limit(3)
     return render_template('index.html', emp_list = emp_list)
 
 #///////////////////////////////////////////////////////////////////////////
