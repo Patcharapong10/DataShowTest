@@ -23,7 +23,7 @@
 			<i class="fa fa-bars"></i>
 			<span class="sr-only">Toggle navigation</span>
 			</button>
-			<a href="/" class="navbar-brand brand"> SCORILO </a>
+			<a href="/" class="navbar-brand brand"> ChaoCarMa </a>
 		</div>
 		<div id="navbar-collapse-02" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
@@ -81,18 +81,14 @@
 		<div class="col-md-4">
 			<a href="#" class="btn btn-buynow">$49.00 - Purchase</a>
 			<div class="properties-box">
+				{% for pro in pro %}
 				<ul class="unstyle">
-					<li><b class="propertyname">Version:</b> 1.0</li>
-					<li><b class="propertyname">Image Size:</b> 2340x1200</li>
-					<li><b class="propertyname">Files Included:</b> mp3, audio, jpeg, png</li>
-					<li><b class="propertyname">Documentation:</b> Well Documented</li>
-					<li><b class="propertyname">License:</b> GNU</li>
-					<li><b class="propertyname">Requires:</b> Easy Digital Downloads</li>
-					<li><b class="propertyname">Environment:</b> Wordpress</li>
-					<li><b class="propertyname">Any Field Etc:</b> Any Detail</li>
-					<li><b class="propertyname">Number:</b> Up to 20 specifications in this box</li>
-					<li><b class="propertyname">HEllo:</b><a target="_blank" href="http://www.wowthemes.net/">http://www.wowthemes.net/</a></li>
+					<li><b class="propertyname">Name : </b>{{ pro['_name'] }}</li>
+					<li><b class="propertyname">Model :</b>{{ pro['_model'] }}</li>
+					<li><b class="propertyname">Price :</b>{{ pro['_price'] }}</li>
+				
 				</ul>
+				{% endfor %}
 			</div>
 		</div>
 	</div>
@@ -113,29 +109,7 @@
 </div>
 </section>
 
-<!-- FOOTER =============================-->
-<div class="footer text-center">
-	<div class="container">
-		<div class="row">
-			<p class="footernote">
-				 Connect with Scorilo
-			</p>
-			<ul class="social-iconsfooter">
-				<li><a href="#"><i class="fa fa-phone"></i></a></li>
-				<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-				<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-				<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-				<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-			</ul>
-			<p>
-				 &copy; 2017 Your Website Name<br/>
-				Scorilo - Free template by <a href="https://www.wowthemes.net/">WowThemesNet</a>
-			</p>
-		</div>
-	</div>
-</div>
 
-<!-- Load JS here for greater good =============================-->
 <script src="js/jquery-.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/anim.js"></script>

@@ -1,13 +1,14 @@
 import pymongo
 import http.client
+import bson
 from flask import Flask,jsonify,render_template,request
 from flask_pymongo import PyMongo
+from bson.objectid import ObjectId
 
 conn = http.client.HTTPSConnection("car-stockpile.p.rapidapi.com")
 app = Flask(__name__)
 client = pymongo.MongoClient("mongodb://admin:VIDgnh48123@node12713-project.app.ruk-com.cloud:11012") 
 db = client["Ass1"] 
-
 
 
 @app.route("/") 
@@ -50,6 +51,11 @@ def Register():
 def shop():
     shop_list = db.Car.find()
     return render_template('shop.html', shop_list = shop_list)
+
+@app.route("/product/<id>")
+def clickpro(id):
+    pro = db.msg.find_one({'_id': ObjectId(id)})
+    return render_template('product.html', pro = pro)
 
 
 if __name__ == "__main__":
