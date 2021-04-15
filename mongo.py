@@ -9,6 +9,7 @@ client = pymongo.MongoClient("mongodb://admin:VIDgnh48123@node12713-project.app.
 db = client["Ass1"] 
 
 
+
 @app.route("/") 
 def index(): 
     emp_list = db.Car.find().limit(3)
@@ -47,7 +48,8 @@ def Register():
 
 @app.route("/shop")
 def shop():
-    return render_template("shop.html")
+    shop_list = db.Car.find()
+    return render_template('shop.html', shop_list = shop_list)
 
 
 if __name__ == "__main__":
