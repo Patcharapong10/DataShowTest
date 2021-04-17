@@ -58,5 +58,56 @@ def clickpro(id):
     return render_template('product.html', pro = pro)
 
 
+#////////////////////////////////////////////////////////
+#ทำการ insert ข้อมูลตารางเข้าไปใหม่
+@app.route('/insertuser', methods=['POST'])
+def insertuser():
+  char = db.customer
+  email = request.form['email'] 
+  firstname = request.form['firstname']
+  lastname = request.form['lastname']
+  password = request.form['password']
+  coin = request.form['coin']
+  address = request.form['address']
+  char.insert_one({ 'email' : email, 'firstname' : firstname, 'lastname': lastname, 'password' : password, 'coin':coin , 'address': address})
+  return render_template('AdminEdit.html')
+
+#ทำการ edit ข้อมูลตารางโดยการอิง name or _name
+@app.route('/Car/<name>', methods=['PUT'])
+def update_character(name):
+    char = db.Car
+    x = char.find_one({'_name' : name}) #เอาค่าที่ใส่มาใน name เพื่อเช็คว่าตรงกับตารางไหน
+    if x: #ในตัวแปร x มี name ที่เรากรอกลงไปใน /Car/<name>
+        myquery = {'_name' : x['_name'], #เรียกข้อมูลมาใส่ใน myquery
+                        '_model' : x['_model'],
+                        '_price' : x['_price']}
+
+    name = request.json['_name'] #ทำการสร้างตัวแปรใหม่เพื่อรับค่าจาก _name
+    model = request.json['_model']
+    price = request.json['_price']
+    
+    newvalues = {"$set" : {'_name' : name,  #ทำการแก้ไขไฟล์แล้วใส่ไปในตัวแปรที่ส้รางรวมกันเป็นอาเร
+                        '_model': model,
+                        '_price': price,}}
+    char_id = char.update_one(myquery, newvalues) #ส่งไปอัพเดท
+    output = {'_name' : name,  #นำค่าที่อัพเดทมาทั้งหมดลงตัวแปร output
+                        '_model': model,
+                        '_price': price,}
+    return jsonify(output) #หลังจากทำเงื่อนไขเสร็จส่งค่ากลับไปที่ output
+
+#ทำการ Deleted ข้อมูลตารางโดยการอิง name or _name
+@app.route('/Car/<name>', methods=['DELETE'])
+def Car_delete(name):
+    char = db.Car
+    x = char.find_one({'_name' : name}) #ในตัวแปร x มี name ที่เรากรอกลงไปใน /Car/<name>
+
+    char_id = char.delete_one(x) #นำ x มาทำฟังชัั่น delete_one 
+
+    output = "Deleted complete" # หลังจากลบเสร็จแสดงข้อความ
+
+    return jsonify(output) #หลังจากทำเงื่อนไขเสร็จส่งค่ากลับไปที่ output
+
+#////////////////////////////////////////////////////////
+
 if __name__ == "__main__":
     app.run(host='127.0.0.1',port = 80)
