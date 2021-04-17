@@ -8,12 +8,12 @@ from bson.objectid import ObjectId
 conn = http.client.HTTPSConnection("car-stockpile.p.rapidapi.com")
 app = Flask(__name__)
 client = pymongo.MongoClient("mongodb://admin:VIDgnh48123@node12713-project.app.ruk-com.cloud:11012") 
-db = client["Ass1"] 
+db = client["project"] 
 
 
 @app.route("/") 
 def index(): 
-    emp_list = db.Car.find().limit(3)
+    emp_list = db.car.find().limit(3)
     return render_template('index.html', emp_list = emp_list)
 
 #///////////////////////////////////////////////////////////////////////////
@@ -49,7 +49,7 @@ def Register():
 
 @app.route("/shop")
 def shop():
-    shop_list = db.Car.find()
+    shop_list = db.car.find()
     return render_template('shop.html', shop_list = shop_list)
 
 @app.route("/product/<id>")
