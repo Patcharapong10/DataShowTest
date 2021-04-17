@@ -72,6 +72,16 @@ def insertuser():
   char.insert_one({ 'email' : email, 'firstname' : firstname, 'lastname': lastname, 'password' : password, 'coin':coin , 'address': address})
   return render_template('AdminEdit.html')
 
+@app.route('/insertcar', methods=['POST'])
+def insertcar():
+  char = db.car
+  _name = request.form['_name'] 
+  _model = request.form['_model']
+  _price = request.form['_price']
+
+  char.insert_one({ '_name' : _name, '_model' : _model, '_price': _price})
+  return render_template('AdminCar.html')
+
 #ทำการ edit ข้อมูลตารางโดยการอิง name or _name
 @app.route('/Car/<name>', methods=['PUT'])
 def update_character(name):
