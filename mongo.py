@@ -26,6 +26,11 @@ def AdminEdit():
 def AdminCar():
     return render_template("AdminCar.html")
 
+@app.route("/EditCar")
+def EditCar():
+    emp_list = db.car.find()
+    return render_template("EditCar.html" , emp_list = emp_list)
+
 @app.route("/About")
 def About():
     return render_template("About.html")
