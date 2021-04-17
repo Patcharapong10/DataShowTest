@@ -22,6 +22,9 @@ def index():
 def AdminEdit():
     return render_template("AdminEdit.html")
 
+@app.route("/AdminCar")
+def AdminCar():
+    return render_template("AdminCar.html")
 
 @app.route("/About")
 def About():
