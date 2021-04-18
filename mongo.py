@@ -29,8 +29,12 @@ def AdminCar():
 
 @app.route("/EditCar")
 def EditCar():
+    return render_template("EditCar.html" )
+
+@app.route("/testupdate")
+def testupdate():
     emp_list = db.car.find()
-    return render_template("EditCar.html" , emp_list = emp_list)
+    return render_template("testupdate.html" , emp_list = emp_list)
 
 @app.route("/About")
 def About():
@@ -92,30 +96,31 @@ def insertcar():
   return render_template('AdminCar.html')
 
 #ทำการ edit ข้อมูลตารางโดยการอิง name or _name
-@app.route('/editcars', methods=['GET','POST'])
-def editcars():
+@app.route('/update')
+def update():
     char = db.car
-    if request.method == 'POST' : 
-        
-        _id = db.query.get(request.form.get('_id'))
-        _name = request.form['_name'] #ทำการสร้างตัวแปรใหม่เพื่อรับค่าจาก _name
-        _model = request.form['_model']
-        _price = request.form['_price']
-        char.update_one({ '_name' : _name, '_model' : _model, '_price': _price},upsert=False)
-        return render_template('EditCar.html')
+    id = request.values.get("_id")
+    emp_list = char.find({"_id":ObjectId(id)})
+    return render_template('EditCar.html',emp_list = emp_list)
 
+@app.route("/action3", methods=['POST'])
+def action3 ():
+	char = db.Car
+	_name=request.values.get("_name")
+	_model=request.values.get("_model")
+	_price=request.values.get("_price")
+	id=request.values.get("_id")
+	couteeee = char.update({"_id":ObjectId(id)}, {'$set':{ "_name":_name, "_model":_model, "_price":_price}})
+
+	print(_name)
+    
 #ทำการ Deleted ข้อมูลตารางโดยการอิง name or _name
-@app.route('/deletecar/<name>', methods=['DELETE'])
-def Car_delete(name):
+@app.route('/deletecar')
+def deletecar():
     char = db.Car
-    x = char.find_one({'_name' : name}) #ในตัวแปร x มี name ที่เรากรอกลงไปใน /Car/<name>
-
-    char_id = char.delete_one(x) #นำ x มาทำฟังชัั่น delete_one 
-
-    output = "Deleted complete" # หลังจากลบเสร็จแสดงข้อความ
-
-    return jsonify(output) #หลังจากทำเงื่อนไขเสร็จส่งค่ากลับไปที่ output
-
+    key = request.values.get("_name")
+    char.remove({"_name": key})
+    return redirect("/testupdate")
 #////////////////////////////////////////////////////////
 
 if __name__ == "__main__":
