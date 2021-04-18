@@ -57,67 +57,80 @@
         <div class="container toparea">
             <div class="underlined-title">
                 <div class="editContent">
-                    <h1 class="text-center latestitems">Car List</h1>
+                    <h1 class="text-center latestitems">Edit Data</h1>
                 </div>
                 <div class="wow-hr type_short">
-                    
+               
                 </div>
             </div>
-              <div class="row">
-                  {% for emp in emp_list %}
-                      <div class="col-md-4">
-                          <div class="productbox">
-                              <div class="fadeshop">
-                                  <div class="product-details">
-                                            
-                                      {{ emp['_name'] }}
-                                      {{ emp['_model'] }}
-                                      {{ emp['_price'] }}
-                                      
-                                      <p>
-                                          <a href="/EditCars/{{_id}}"class="btn btn-warning btn-xs"data-toggle="modal"data-target="#modaledit{{_id}}">Edit</a>
-                                          <a href="/deletecar/{{_id}}"class="btn btn-danger btn-xs"onclick="return confirm('Are You Sure To Delete ?')">Delete</a>
-                                      </p>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
+                <div class="row">
+                    
+                    {% for emp in emp_list %}
+                    <div class="col-md-4">
+                        <div class="productbox">
+                            <div class="fadeshop">
+                                <div class="product-details">
+                                        
+                                    {{ emp['_name'] }}
+                                    {{ emp['_model'] }}
+                                    {{ emp['_price'] }}
+                                    
+                                    <p>
+                                        <a href="/editcars/{{_id}}"class="btn btn-warning btn-xs"data-toggle="modal"data-target="#modaledit{{_id}}">Edit</a>
+                                      <a href="/delete/{{_id}}"class="btn btn-danger btn-xs"onclick="return confirm('Are You Sure To Delete ?')">Delete</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                            
+             
+                    <div id="modaledit{{_id}}" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title">Update Information</h4>
+                            </div>
+            
+                            <div class="modal-body">
+                              <form action="{{url_for('editcars')}}" method="POST">
+                                <div class="form-group">
+                                  <label>Car id:</label>
+                                  <input type="hidden" name="_id" value="{{_id}}" />
+            
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    name="_id"
+                                    value="{{_name}}"
+                                  />
+                                </div>
+            
+                                <div class="form-group">
+                                  <label>Car name:</label>
+            
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    name="_name"
+                                    value="{{_name}}"
+                                  />
+                                </div>
+            
+                                <div class="form-group">
+                                  <label>Car model:</label>
+            
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    name="_model"
+                                    value="{{_model}}"
+                                  />
+                                </div>
 
-                      <div id="modaledit{{_id}}" class="modal fade" role="dialog">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h4 class="modal-title">Update Information</h4>
-                              </div>
-                  
-                              <div class="modal-body">
-                                <form action="/EditCars" method="POST">
-                                  <div class="form-group">
-                                    <label>Car name:</label>
-                                    <input type="hidden" name="_id" value="{{_id}}" />
-                  
-                                    <input
-                                      type="text"
-                                      class="form-control"
-                                      name="_name"
-                                      value="{{_name}}"
-                                    />
-                                  </div>
-                  
-                                  <div class="form-group">
-                                    <label>Car model:</label>
-                  
-                                    <input
-                                      type="text"
-                                      class="form-control"
-                                      name="_model"
-                                      value="{{_model}}"
-                                    />
-                                  </div>
-                  
-                                  <div class="form-group">
+                                <div class="form-group">
                                     <label>Car price:</label>
-                  
+              
                                     <input
                                       type="text"
                                       class="form-control"
@@ -125,34 +138,34 @@
                                       value="{{_price}}"
                                     />
                                   </div>
-                  
-                                  <div class="form-group">
-                                    <button class="btn btn-primary" type="submit">
-                                      Update
-                                    </button>
-                                  </div>
-                                </form>
-                              </div>
-                  
-                              <div class="modal-footer">
-                                <button
-                                  type="button"
-                                  class="btn btn-secondary"
-                                  data-dismiss="modal"
-                                >
-                                  Close
-                                </button>
-                              </div>
+            
+                                <div class="form-group">
+                                  <button class="btn btn-primary" type="submit">
+                                    Update
+                                  </button>
+                                </div>
+                              </form>
+                            </div>
+            
+                            <div class="modal-footer">
+                              <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-dismiss="modal"
+                              >
+                                Close
+                              </button>
                             </div>
                           </div>
                         </div>
-                              
-                  {% endfor %}
-          
-              </div>
+                      </div>
+            
+                      {% endfor %}
+        
+                </div>
         </div>
-        </div>
-        </section>
+    </section>
+
 
     <!-- CALL TO ACTION =============================-->
     <section class="content-block" style="background-color:#00bba7;">

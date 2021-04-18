@@ -92,25 +92,17 @@ def insertcar():
   return render_template('AdminCar.html')
 
 #ทำการ edit ข้อมูลตารางโดยการอิง name or _name
-@app.route('/EditCars/<name>', methods=['PUT'])
-def EditCars(name):
-    char = db.Car
-    x = char.find_one({'_name' : name}) #เอาค่าที่ใส่มาใน name เพื่อเช็คว่าตรงกับตารางไหน
-    if x: #ในตัวแปร x มี name ที่เรากรอกลงไปใน /Car/<name>
-        myquery = {'_name' : x['_name'], #เรียกข้อมูลมาใส่ใน myquery
-                        '_model' : x['_model'],
-                        '_price' : x['_price']}
-
-    name = request.json['_name'] #ทำการสร้างตัวแปรใหม่เพื่อรับค่าจาก _name
-    model = request.json['_model']
-    price = request.json['_price']
-    
-    newvalues = {"$set" : {'_name' : name,  #ทำการแก้ไขไฟล์แล้วใส่ไปในตัวแปรที่ส้รางรวมกันเป็นอาเร
-                        '_model': model,
-                        '_price': price,}}
-    char_id = char.update_one(myquery, newvalues) #ส่งไปอัพเดท
-    db.session.commit()
-    return redirect(url_for('EditCar'))
+@app.route('/editcars', methods=['GET','POST'])
+def editcars():
+    char = db.car
+    if request.method == 'POST' : 
+        
+        _id = db.query.get(request.form.get('_id'))
+        _name = request.form['_name'] #ทำการสร้างตัวแปรใหม่เพื่อรับค่าจาก _name
+        _model = request.form['_model']
+        _price = request.form['_price']
+        char.update_one({ '_name' : _name, '_model' : _model, '_price': _price},upsert=False)
+        return render_template('EditCar.html')
 
 #ทำการ Deleted ข้อมูลตารางโดยการอิง name or _name
 @app.route('/deletecar/<name>', methods=['DELETE'])
