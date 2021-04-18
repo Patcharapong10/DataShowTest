@@ -1,7 +1,8 @@
+from flask.helpers import url_for
 import pymongo
 import http.client
 import bson
-from flask import Flask,jsonify,render_template,request
+from flask import Flask,jsonify,render_template,request,redirect
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 
@@ -91,8 +92,8 @@ def insertcar():
   return render_template('AdminCar.html')
 
 #ทำการ edit ข้อมูลตารางโดยการอิง name or _name
-@app.route('/Car/<name>', methods=['PUT'])
-def update_character(name):
+@app.route('/EditCars/<name>', methods=['PUT'])
+def EditCars(name):
     char = db.Car
     x = char.find_one({'_name' : name}) #เอาค่าที่ใส่มาใน name เพื่อเช็คว่าตรงกับตารางไหน
     if x: #ในตัวแปร x มี name ที่เรากรอกลงไปใน /Car/<name>
@@ -108,13 +109,11 @@ def update_character(name):
                         '_model': model,
                         '_price': price,}}
     char_id = char.update_one(myquery, newvalues) #ส่งไปอัพเดท
-    output = {'_name' : name,  #นำค่าที่อัพเดทมาทั้งหมดลงตัวแปร output
-                        '_model': model,
-                        '_price': price,}
-    return jsonify(output) #หลังจากทำเงื่อนไขเสร็จส่งค่ากลับไปที่ output
+    db.session.commit()
+    return redirect(url_for('EditCar'))
 
 #ทำการ Deleted ข้อมูลตารางโดยการอิง name or _name
-@app.route('/Car/<name>', methods=['DELETE'])
+@app.route('/deletecar/<name>', methods=['DELETE'])
 def Car_delete(name):
     char = db.Car
     x = char.find_one({'_name' : name}) #ในตัวแปร x มี name ที่เรากรอกลงไปใน /Car/<name>
