@@ -29,6 +29,10 @@ def AdminEdit():
 def AdminCar():
     return render_template("AdminCar.html")
 
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
+
 @app.route("/EditCar")
 def EditCar():
     return render_template("EditCar.html" )
@@ -46,13 +50,9 @@ def About():
 def checkout():
     return render_template("checkout.html")
 
-@app.route("/contact")
-def contact():
-    return render_template("contact.html")
-
-@app.route("/Login")
-def Login():
-    return render_template("Login.html")
+# @app.route("/Login")
+# def Login():
+#     return render_template("Login.html")
 
 @app.route("/product")
 def product():
@@ -96,6 +96,17 @@ def insertcar():
 
   char.insert_one({ '_name' : _name, '_model' : _model, '_price': _price})
   return render_template('AdminCar.html')
+
+@app.route('/insertmessage', methods=['POST'])
+def insertmessage():
+  char = db.contact
+  cname = request.form['cname'] 
+  cemail = request.form['cemail']
+  emessage = request.form['emessage']
+
+  char.insert_one({ 'cname' : cname, 'cemail' : cemail, 'emessage': emessage})
+  return render_template('contact.html')
+
 
 #ทำการ edit ข้อมูลตารางโดยการอิง name or _name
 @app.route('/update')
